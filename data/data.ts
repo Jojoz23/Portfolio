@@ -56,7 +56,7 @@ export const contactData: Contact[] = [
     email: "zuhayrfaizan@gmail.com",
     phone: "+1 (647) 764-9933",
     location: "Etobicoke, ON",
-    website: "https://johndoe.dev",
+    website: "https://zuhayrfahmed.vercel.app/",
     github: "https://github.com/Jojoz23",
     linkedin: "https://linkedin.com/in/zuhayr-f-ahmed",
   },

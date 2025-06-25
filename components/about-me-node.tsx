@@ -38,10 +38,12 @@ export default function AboutMeNode({ aboutMe }: AboutMeNodeProps) {
               className="object-cover"
             />
           </motion.div>
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
           <Button size="lg" className="bg-gradient-to-r from-primary to-secondary text-white px-12 py-4 text-lg">
             <Download className="mr-3 h-6 w-6" />
             Download Resume
           </Button>
+          </a>
         </div>
 
         <div className="lg:col-span-3 space-y-12">
