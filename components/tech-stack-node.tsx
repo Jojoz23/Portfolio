@@ -26,19 +26,17 @@ export default function TechStackNode({ techStack }: TechStackNodeProps) {
   }
 
   return (
-    <div className="w-full h-full overflow-y-auto flex flex-col p-8">
-      <div className="text-center mb-12">
-        <h1 className="text-5xl font-bold gradient-text mb-4">Tech Stack</h1>
-        <p className="text-xl text-muted-foreground">Skills & Technologies I Work With</p>
+    <div className="w-full h-full overflow-y-auto flex flex-col p-4 sm:p-8">
+      <div className="text-center mb-8 sm:mb-12">
+        <h1 className="text-3xl sm:text-6xl font-bold gradient-text mb-4 sm:mb-6">Tech Stack</h1>
+        <p className="text-lg sm:text-2xl text-muted-foreground">Skills & Technologies I Work With</p>
       </div>
 
       <div className="flex-1">
         <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full h-full">
-          <div className="flex justify-center mb-8">
-            <TabsList
-              className="grid bg-glass backdrop-blur-md border border-white/20 p-2 rounded-2xl"
-              style={{ gridTemplateColumns: `repeat(${techStack.length}, 1fr)` }}
-            >
+          <div className="flex justify-center m-0 p-0">
+          <div className="overflow-x-auto mb-8 overflow-y-hidden flex justify-start">
+            <TabsList className="bg-glass backdrop-blur-md border border-white/20 p-2 rounded-2xl">
               {techStack.map((category) => (
                 <TabsTrigger
                   key={category.name}
@@ -49,6 +47,7 @@ export default function TechStackNode({ techStack }: TechStackNodeProps) {
                 </TabsTrigger>
               ))}
             </TabsList>
+          </div>
           </div>
 
           {techStack.map((category, categoryIndex) => (

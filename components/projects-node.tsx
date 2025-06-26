@@ -26,8 +26,8 @@ export default function ProjectsNode({ projects }: ProjectsNodeProps) {
   return (
     <div className="w-full h-full overflow-y-auto p-8 relative">
       <div className="text-center mb-16">
-        <h1 className="text-6xl font-bold gradient-text mb-6">Projects</h1>
-        <p className="text-2xl text-muted-foreground">Things I've Helped Built</p>
+        <h1 className="text-3xl sm:text-6xl font-bold gradient-text mb-4 sm:mb-6">Projects</h1>
+        <p className="text-lg sm:text-2xl text-muted-foreground">Things I've Helped Built</p>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-1 xl:grid-cols-2 items-start">

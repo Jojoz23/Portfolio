@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import CircleNode from "@/components/circle-node"
 import ExperienceNode from "@/components/experience-node"
@@ -38,8 +38,18 @@ export default function MapInterface({
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const [expanded, setExpanded] = useState(false)
   const [detailView, setDetailView] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const { theme } = useTheme()
   const isDark = theme === "dark"
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 640) // Tailwind's "sm" breakpoint
+    }
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   const handleMainClick = () => {
     if (!expanded) {
@@ -63,21 +73,30 @@ export default function MapInterface({
     setDetailView(false)
   }
 
-  // Calculate positions for the circular nodes
   const getNodePositions = () => {
-    return {
-      about: { x: 0, y: -160 },
-      experience: { x: -160, y: -80 },
-      education: { x: -160, y: 80 },
-      techStack: { x: 0, y: 160 },
-      projects: { x: 160, y: 80 },
-      contact: { x: 160, y: -80 },
+    if (isMobile) {
+      return {
+        about: { x: 0, y: -120 },
+        experience: { x: -120, y: -60 },
+        education: { x: -120, y: 60 },
+        techStack: { x: 0, y: 120 },
+        projects: { x: 120, y: 60 },
+        contact: { x: 120, y: -60 },
+      }
+    } else {
+      return {
+        about: { x: 0, y: -160 },
+        experience: { x: -160, y: -80 },
+        education: { x: -160, y: 80 },
+        techStack: { x: 0, y: 160 },
+        projects: { x: 160, y: 80 },
+        contact: { x: 160, y: -80 },
+      }
     }
   }
 
   const positions = getNodePositions()
 
-  // Get gradient class for each section
   const getSectionGradient = (section: string) => {
     const darkGradients = {
       about: "bg-forest-teal",
@@ -158,7 +177,7 @@ export default function MapInterface({
               {expanded && (
                 <>
                   {Object.entries(positions).map(([section, position], index) => {
-                    if (section === "about") return null // Skip about as it's handled by main circle
+                    if (section === "about") return null
 
                     const sectionLabels = {
                       experience: "Experience",
@@ -197,7 +216,7 @@ export default function MapInterface({
                         onClick={() => handleSectionClick(section)}
                       >
                         <CircleNode
-                          size={110}
+                          size={isMobile ? 80 : 110}
                           label={sectionLabels[section as keyof typeof sectionLabels]}
                           active={activeSection === section}
                           icon={sectionIcons[section as keyof typeof sectionIcons]}
@@ -210,7 +229,7 @@ export default function MapInterface({
             </AnimatePresence>
           </motion.div>
         ) : (
-          // Detail View - Full Page Content
+          // Detail View
           <motion.div
             key="detail-view"
             className="relative w-full h-full"
@@ -219,7 +238,6 @@ export default function MapInterface({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {/* Floating Back Button */}
             <motion.button
               className={`fixed top-8 left-8 z-50 w-16 h-16 ${getSectionGradient(
                 activeSection!,
@@ -234,7 +252,6 @@ export default function MapInterface({
               <ArrowLeft className="h-6 w-6" />
             </motion.button>
 
-            {/* Full Page Content */}
             <motion.div
               className="w-full h-full overflow-y-auto custom-scrollbar"
               initial={{ opacity: 0, y: 20 }}
@@ -249,24 +266,3 @@ export default function MapInterface({
     </div>
   )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,6 +4,7 @@ import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { Briefcase, GraduationCap, Mail, User, Code, Folder } from "lucide-react"
 import { useTheme } from "next-themes"
+import { motion } from "framer-motion"
 
 type CircleNodeProps = {
   size: number
@@ -37,7 +38,13 @@ export default function CircleNode({
     const iconSize = size * 0.3
     const iconProps = {
       size: iconSize,
-      className: active ? "text-white" : expanded && isDark ? "text-black" : expanded ? "text-primary" : "text-white",
+      className: active
+        ? "text-white"
+        : expanded && isDark
+        ? "text-black"
+        : expanded
+        ? "text-primary"
+        : "text-white",
     }
 
     switch (icon) {
@@ -58,18 +65,22 @@ export default function CircleNode({
   }
 
   return (
-    <div className={cn(glow && "glow")}>
-      <div
+    <div className={cn(glow && "glow")}>      
+      <motion.div
+        animate={{
+          width: size,
+          height: size,
+        }}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}
         className={cn(
           "rounded-full flex flex-col items-center justify-center transition-all duration-300 cursor-pointer hover-lift",
           active
             ? "bg-full-gradient text-white shadow-lg shadow-primary/30 hover-glow"
             : expanded
-              ? "glass text-foreground shadow-xl"
-              : isDark
-                ? "bg-forest-teal text-white shadow-lg hover:shadow-xl dark:shadow-black/20 hover-glow"
-                : "bg-light-forest-teal text-white shadow-lg hover:shadow-xl hover-glow",
-          "transform transition-all duration-300",
+            ? "glass text-foreground shadow-xl"
+            : isDark
+            ? "bg-forest-teal text-white shadow-lg hover:shadow-xl dark:shadow-black/20 hover-glow"
+            : "bg-light-forest-teal text-white shadow-lg hover:shadow-xl hover-glow",
           active && "scale-110",
           !active && "hover:scale-105",
         )}
@@ -86,8 +97,8 @@ export default function CircleNode({
               active
                 ? "border-white/50 hover:border-white/70"
                 : expanded
-                  ? "border-white/30 dark:border-white/10 hover:border-white/50 dark:hover:border-white/20"
-                  : "border-white/30 hover:border-white/50",
+                ? "border-white/30 dark:border-white/10 hover:border-white/50 dark:hover:border-white/20"
+                : "border-white/30 hover:border-white/50",
             )}
             style={{ width: size * 0.7, height: size * 0.7 }}
           >
@@ -127,7 +138,7 @@ export default function CircleNode({
             {subLabel}
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   )
 }
