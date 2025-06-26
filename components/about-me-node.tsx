@@ -4,7 +4,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Download, Heart } from "lucide-react"
+import { ExternalLink, Heart } from "lucide-react"
 
 type AboutMeNodeProps = {
   aboutMe: {
@@ -41,8 +41,8 @@ export default function AboutMeNode({ aboutMe }: AboutMeNodeProps) {
           </motion.div>
           <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
             <Button size="lg" className="bg-gradient-to-r from-primary to-secondary text-white px-8 sm:px-12 py-3 sm:py-4 text-base sm:text-lg">
-              <Download className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
-              Download Resume
+              <ExternalLink className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6" />
+              Resume
             </Button>
           </a>
         </div>
